@@ -6,7 +6,7 @@ TIME_PLAYING = 8;
 TIME_TRIGGERING = 0.1;
 
 % Song
-for 1:100
+for i = 1:100
 
 SONG_ARRAY = {song01,song02,song03,song04,song05,song06}
 BOS = SONG_ARRAY{randi(6)}
