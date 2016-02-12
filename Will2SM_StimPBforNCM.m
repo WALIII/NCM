@@ -1,5 +1,5 @@
 % Parameters
-SERIAL = 'COM9';
+SERIAL = '/dev/cu.usbmodem1D11';
 PIN = 12;
 TIME_PREPARING = 2;
 TIME_PLAYING = 8;
@@ -8,8 +8,8 @@ TIME_TRIGGERING = 0.1;
 % Song
 for i = 1:100
 
-SONG_ARRAY = {song01,song02,song03,song04,song05,song06}
-BOS = SONG_ARRAY{randi(6)}
+SONG_ARRAY = {song01,song02,song03,song04,song05,song06};
+BOS = SONG_ARRAY{randi(6)};
 Song = (BOS); % Make sure a stimulus called 'BOS' is loaded into Matlab's variables
 fs = (fs); % Make sure the playback frequency called 'fs' is loaded into Matlab's variables
 
@@ -57,11 +57,10 @@ while true
     arduino_instance.digitalWrite(PIN,1);
     pause(TIME_TRIGGERING);
     arduino_instance.digitalWrite(PIN,0);
-    end
-
+end
+    
+pause(randi([1,2])) % wait until next trigger
 end
 
-randi([120,2000])
 
-pause(randi([120,2000])) % wait until next trigger
-end
+
