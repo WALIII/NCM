@@ -1,0 +1,60 @@
+% Parameters
+
+clear all;
+
+SERIAL = '/dev/cu.usbmodem1411';
+PIN = 13;
+TIME_PREPARING = 2;
+TIME_PLAYING = 8;
+TIME_TRIGGERING = 0.1;
+fs = 48000;
+load('songtest.mat');
+% Initialize arduino
+arduino_instance = arduino(SERIAL,'uno');
+% arduino_instance.pinMode(PIN,'output');
+
+% Song
+for i = 1:100
+
+SONG_ARRAY = {song01,song02,song03,song04,song05,song06};
+BOS = SONG_ARRAY{randi(6)};
+Song = (BOS); % Make sure a stimulus called 'BOS' is loaded into Matlab's variables
+fs = (fs); % Make sure the playback frequency called 'fs' is loaded into Matlab's variables
+
+% Initialize audio
+% InitializePsychSound(1);
+
+
+
+% Load song once
+% PsychPortAudio('Close');
+% pahandle = PsychPortAudio('Open', [], 1, [], fs, 1, [], 0.025, [], []);
+% PsychPortAudio('FillBuffer', pahandle, Song');
+
+disp(' Starting paradigm')
+disp(' Start Recording')
+pause(5)
+   writeDigitalPin(arduino_instance, 'D13', 1);
+soundsc(BOS,fs);
+pause(5)
+disp('end recording')
+   writeDigitalPin(arduino_instance, 'D13', 0);
+
+pause(5);
+%     PsychPortAudio('Start', pahandle);
+%     profile_start(end + 1) = toc; % time from trigger to start playing
+%     pause(TIME_PLAYING);
+% 
+%     % close shutter
+%     disp('Close shutter.');
+%     arduino_instance.digitalWrite(PIN,1);
+%     pause(TIME_TRIGGERING);
+%     arduino_instance.digitalWrite(PIN,0);
+pause(randi([1,2])) % wait until next trigger
+
+
+end
+    
+
+
+
