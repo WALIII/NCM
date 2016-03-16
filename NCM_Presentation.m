@@ -25,14 +25,14 @@ load('songtest.mat');
 SERIAL = '/dev/cu.usbmodem14731';
 arduino_instance = arduino(SERIAL,'uno');
 % load in different songs to be played randomly throughout the day: 
-SONG_ARRAY = {song01,song02,song03,song04,song05,song06}; 
+SONG_ARRAY = {song01}; %,song02,song03,song04,song05,song06}; 
 fs = 48000; % frequency of the audio recordings
 
 
 
 
 for i = 1:100 % for n trials (100)
-BOS = SONG_ARRAY{randi(6)}; % pick 1 of the n trials randomly where 'n' is the # of songs in songtest.mat 
+BOS = SONG_ARRAY{1}; %{randi(6)}; % pick 1 of the n trials randomly where 'n' is the # of songs in songtest.mat 
 % Make sure a stimulus called 'BOS' is loaded into Matlab's variables
 
 
@@ -44,16 +44,16 @@ tic
 pause(5) % 5 seconds of imaging before the stimulus
 soundsc(BOS,fs); % Play the stimulus of choice. 
 pause(size(song01,1)/fs) % add the lenght of the stimulus to the recording durration
-pause(5)% 5 seconds of imaging after the stimulus
+pause(2)% 5 seconds of imaging after the stimulus
 toc
 %disp(' END Trigger')
    writeDigitalPin(arduino_instance, 'D4', 0);% Write digital pin 13 low
    writeDigitalPin(arduino_instance, 'D5', 0);% Write digital pin 13 low
 
-pause(5); % Wait as to not overflow the buffer ( add 5 seconds to the 
+pause(2); % Wait as to not overflow the buffer ( add 5 seconds to the 
           % minimim wait time....
 
-pause(randi([1,2])) % wait until next trigger
+pause(randi([30 300])) % wait until next trigger
 
 clear BOS % clear the buffer
 end
